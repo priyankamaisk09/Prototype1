@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Healthcare AI Prototype</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f8fb;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  background: white;
+  width: 340px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h2 {
+  color: #2b6cb0;
+}
+
+button {
+  background: #2b6cb0;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+button:hover {
+  background: #1e4e8c;
+}
+
+.step {
+  margin: 8px 0;
+  opacity: 0.4;
+}
+
+.active {
+  opacity: 1;
+  font-weight: bold;
+  color: #2b6cb0;
+}
+
+.loader {
+  margin: 15px auto;
+  border: 4px solid #ddd;
+  border-top: 4px solid #2b6cb0;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div class="card" id="home">
+  <h2>Smart Health Analyzer</h2>
+  <p>AI-assisted early risk detection</p>
+  <button onclick="goTo('capture')">Start</button>
+</div>
+
+<!-- CAPTURE -->
+<div class="card" id="capture" style="display:none">
+  <h2>Capture Data</h2>
+  <p>Upload / Enter patient details</p>
+  <button onclick="goTo('analyze')">Analyze</button>
+</div>
+
+<!-- ANALYZING (YOUR CORE WORK) -->
+<div class="card" id="analyze" style="display:none">
+  <h2>Analyzing Data...</h2>
+  <div class="loader"></div>
+
+  <div id="s1" class="step active">✔ Preprocessing Input</div>
+  <div id="s2" class="step">✔ Feature Extraction</div>
+  <div id="s3" class="step">✔ AI Model Analysis</div>
+  <div id="s4" class="step">✔ Risk Assessment</div>
+</div>
+
+<!-- RESULT -->
+<div class="card" id="result" style="display:none">
+  <h2>Result</h2>
+  <p><b>Risk Level:</b> Moderate</p>
+  <p>Suggested Action: Consult Specialist</p>
+  <button onclick="goTo('home')">Restart</button>
+</div>
+
+<script>
+function goTo(screen) {
+  document.querySelectorAll('.card').forEach(c => c.style.display = "none");
+  document.getElementById(screen).style.display = "block";
+
+  if (screen === "analyze") runAnalysis();
+}
+
+function runAnalysis() {
+  let steps = ["s1","s2","s3","s4"];
+  let i = 0;
+
+  let interval = setInterval(() => {
+    if (i < steps.length) {
+      document.getElementById(steps[i]).classList.add("active");
+      i++;
+    } else {
+      clearInterval(interval);
+      setTimeout(() => goTo("result"), 1000);
+    }
+  }, 1200);
+}
+</script>
+
+</body>
+</html>
