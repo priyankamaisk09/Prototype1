@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Healthcare AI Prototype</title>
-  <link rel="manifest" href="manifest.json">
-</head>
+<title>Smart Health Analyzer</title>
+
+<link rel="manifest" href="manifest.json">
 
 <style>
 body {
@@ -26,9 +26,7 @@ body {
   text-align: center;
 }
 
-h2 {
-  color: #2b6cb0;
-}
+h2 { color: #2b6cb0; }
 
 button {
   background: #2b6cb0;
@@ -38,10 +36,6 @@ button {
   border-radius: 8px;
   cursor: pointer;
   margin-top: 15px;
-}
-
-button:hover {
-  background: #1e4e8c;
 }
 
 .step {
@@ -74,21 +68,18 @@ button:hover {
 
 <body>
 
-<!-- HOME -->
 <div class="card" id="home">
   <h2>Smart Health Analyzer</h2>
   <p>AI-assisted early risk detection</p>
   <button onclick="goTo('capture')">Start</button>
 </div>
 
-<!-- CAPTURE -->
 <div class="card" id="capture" style="display:none">
   <h2>Capture Data</h2>
-  <p>Upload / Enter patient details</p>
+  <p>Enter patient details</p>
   <button onclick="goTo('analyze')">Analyze</button>
 </div>
 
-<!-- ANALYZING (YOUR CORE WORK) -->
 <div class="card" id="analyze" style="display:none">
   <h2>Analyzing Data...</h2>
   <div class="loader"></div>
@@ -99,7 +90,6 @@ button:hover {
   <div id="s4" class="step">✔ Risk Assessment</div>
 </div>
 
-<!-- RESULT -->
 <div class="card" id="result" style="display:none">
   <h2>Result</h2>
   <p><b>Risk Level:</b> Moderate</p>
@@ -109,7 +99,9 @@ button:hover {
 
 <script>
 function goTo(screen) {
-  document.querySelectorAll('.card').forEach(c => c.style.display = "none");
+  document.querySelectorAll('.card')
+    .forEach(c => c.style.display = "none");
+
   document.getElementById(screen).style.display = "block";
 
   if (screen === "analyze") runAnalysis();
@@ -129,7 +121,8 @@ function runAnalysis() {
     }
   }, 1200);
 }
-  <script>
+
+// PWA service worker
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
@@ -137,4 +130,3 @@ if ("serviceWorker" in navigator) {
 
 </body>
 </html>
-
